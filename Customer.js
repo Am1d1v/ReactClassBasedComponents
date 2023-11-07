@@ -1,10 +1,25 @@
+import { Component } from "react";
 import styles from "./Customer.module.css";
 
-const Customer = (props) => {
 
-  const {name} = props;
+// Class Based Component
+class Customer extends Component{
 
-  return <li className={styles.customer}>{name}</li>;
-};
+  render(){
+
+    const name = this.props.name
+    return(
+    <li className={styles.customer}>{name}</li>
+    );
+  }
+}
+
+// Function Component
+// const Customer = (props) => {
+
+//   const {name} = props;
+
+//   return <li className={styles.customer}>{name}</li>;
+// };
 
 export default Customer;
