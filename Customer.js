@@ -7,7 +7,7 @@ class Customer extends Component{
 
   render(){
 
-    const name = this.props.name
+    const name = this.props.name;
     return(
     <li className={styles.customer}>{name}</li>
     );

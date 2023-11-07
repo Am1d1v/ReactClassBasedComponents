@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Component} from "react";
 import Customer from "./Customer";
 import styles from "./Customers.module.css";
 
@@ -8,29 +8,71 @@ const DUMMY_CUSTOMERS = [
   { id: "c3", name: "CustomerName3" },
 ];
 
-const Customers = () => {
-  const [showCustomers, setShowCustomers] = useState(true);
+// Class Based Component
 
-  const toggleCustomersHandler = () => {
-    setShowCustomers((currentState) => !currentState);
-  };
+class Customers extends Component {
 
-  const customersList = (
-    <ul>
-      {DUMMY_CUSTOMERS.map((customer, index) => (
-        <Customer key={index} name={customer.name} />
-      ))}
-    </ul>
-  );
+  constructor(){
+    super();
+    this.state = {
+      showCustomers: true
+    };
+  }
 
-  return (
-    <div className={styles.customers}>
-      <button onClick={toggleCustomersHandler}>
-        {showCustomers ? "Спрятать" : "Показать"} Заказчиков
+  toggleCustomersHandler(){
+    this.setState((currentState) => {
+      return {
+        showCustomers: !currentState.showCustomers
+      }
+    })}
+
+  render(){
+
+    const customersList = (
+      <ul>
+        {DUMMY_CUSTOMERS.map((customer, index) => {
+        return <Customer key={index} name={customer.name} />
+        })}
+      </ul>
+    )
+
+    return(
+      <div className={styles.customers}>
+      <button onClick={this.toggleCustomersHandler.bind(this)}>
+        {this.state.showCustomers ? "Спрятать" : "Показать"} Заказчиков
       </button>
-      {showCustomers && customersList}
+      {this.state.showCustomers && customersList}
     </div>
-  );
-};
+    )
+  }
+}
+
+
+// Functional Component
+
+// const Customers = () => {
+//   const [showCustomers, setShowCustomers] = useState(true);
+
+//   const toggleCustomersHandler = () => {
+//     setShowCustomers((currentState) => !currentState);
+//   };
+
+//   const customersList = (
+//     <ul>
+//       {DUMMY_CUSTOMERS.map((customer, index) => (
+//         <Customer key={index} name={customer.name} />
+//       ))}
+//     </ul>
+//   );
+
+//   return (
+//     <div className={styles.customers}>
+//       <button onClick={toggleCustomersHandler}>
+//         {showCustomers ? "Спрятать" : "Показать"} Заказчиков
+//       </button>
+//       {showCustomers && customersList}
+//     </div>
+//   );
+// };
 
 export default Customers;
